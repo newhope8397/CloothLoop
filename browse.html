@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Browse Clothes - ClothLoop</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #090a10;
+            color: #f5f7ff;
+            font-family: Arial, sans-serif;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 900px;
+            margin: auto;
+            padding: 18px;
+        }
+
+        .top {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 22px;
+        }
+
+        .back {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: #12141d;
+            color: white;
+            border-radius: 11px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .search {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: #12141d;
+            color: white;
+            outline: none;
+            font-size: 15px;
+            margin-bottom: 15px;
+        }
+
+        .filters {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+        }
+
+        .filter {
+            white-space: nowrap;
+            padding: 9px 13px;
+            border-radius: 999px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: #12141d;
+            color: #b8bdcc;
+            cursor: pointer;
+        }
+
+        .filter.active {
+            background: rgba(155,108,255,0.16);
+            border-color: rgba(155,108,255,0.45);
+            color: white;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 13px;
+        }
+
+        .item {
+            overflow: hidden;
+            border-radius: 17px;
+            background: #12141d;
+            border: 1px solid rgba(255,255,255,0.08);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .item:hover {
+            transform: translateY(-2px);
+        }
+
+        .image {
+            width: 100%;
+            aspect-ratio: 1 / 1.08;
+            display: grid;
+            place-items: center;
+            font-size: 55px;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(155,108,255,0.18),
+                    rgba(54,217,199,0.08)
+                );
+        }
+
+        .details {
+            padding: 13px;
+        }
+
+        .details h3 {
+            margin: 0 0 7px;
+            font-size: 15px;
+        }
+
+        .price {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 7px;
+        }
+
+        .meta {
+            color: #9ca3b5;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .verified {
+            display: inline-block;
+            margin-top: 9px;
+            padding: 5px 8px;
+            border-radius: 7px;
+            background: rgba(54,217,199,0.09);
+            color: #55e4d3;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .empty {
+            display: none;
+            text-align: center;
+            padding: 50px 20px;
+            color: #9ca3b5;
+        }
+
+        @media (max-width: 430px) {
+            .grid {
+                gap: 9px;
+            }
+
+            .details {
+                padding: 11px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <div class="top">
+
+        <button class="back" onclick="goBack()">
+            ←
+        </button>
+
+        <h1>Browse Clothes</h1>
+
+    </div>
+
+
+    <input
+        class="search"
+        id="search"
+        type="search"
+        placeholder="Search wedding wear, lehenga, kurta..."
+        oninput="searchItems()"
+    >
+
+
+    <div class="filters">
+
+        <button
+            class="filter active"
+            onclick="filterItems('All', this)"
+        >
+            All
+        </button>
+
+        <button
+            class="filter"
+            onclick="filterItems('Wedding', this)"
+        >
+            💍 Wedding
+        </button>
+
+        <button
+            class="filter"
+            onclick="filterItems('Traditional', this)"
+        >
+            ✨ Traditional
+        </button>
+
+        <button
+            class="filter"
+            onclick="filterItems('Party', this)"
+        >
+            🎉 Party
+        </button>
+
+        <button
+            class="filter"
+            onclick="filterItems('Everyday', this)"
+        >
+            👕 Everyday
+        </button>
+
+    </div>
+
+
+    <div class="grid" id="items">
+
+        <div
+            class="item"
+            data-category="Wedding"
+            data-name="Red Wedding Lehenga"
+            onclick="openItem('Red Wedding Lehenga')"
+        >
+
+            <div class="image">
+                👗
+            </div>
+
+            <div class="details">
+
+                <h3>Red Wedding Lehenga</h3>
+
+                <div class="price">
+                    ₹1,800
+                </div>
+
+                <div class="meta">
+                    M · Worn once<br>
+                    Original price ₹4,500
+                </div>
+
+                <span class="verified">
+                    ✓ Physically Verified
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="item"
+            data-category="Traditional"
+            data-name="Blue Silk Kurta Set"
+            onclick="openItem('Blue Silk Kurta Set')"
+        >
+
+            <div class="image">
+                👘
+            </div>
+
+            <div class="details">
+
+                <h3>Blue Silk Kurta Set</h3>
+
+                <div class="price">
+                    ₹900
+                </div>
+
+                <div class="meta">
+                    L · Worn twice<br>
+                    Excellent condition
+                </div>
+
+                <span class="verified">
+                    ✓ Physically Verified
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="item"
+            data-category="Party"
+            data-name="Black Party Dress"
+            onclick="openItem('Black Party Dress')"
+        >
+
+            <div class="image">
+                👚
+            </div>
+
+            <div class="details">
+
+                <h3>Black Party Dress</h3>
+
+                <div class="price">
+                    ₹700
+                </div>
+
+                <div class="meta">
+                    S · Worn once<br>
+                    Like new
+                </div>
+
+                <span class="verified">
+                    ✓ Physically Verified
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="item"
+            data-category="Everyday"
+            data-name="Cotton Shirt"
+            onclick="openItem('Cotton Shirt')"
+        >
+
+            <div class="image">
+                👕
+            </div>
+
+            <div class="details">
+
+                <h3>Cotton Shirt</h3>
+
+                <div class="price">
+                    ₹350
+                </div>
+
+                <div class="meta">
+                    M · Used<br>
+                    Good condition
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="empty" id="empty">
+        No clothing found.
+    </div>
+
+</div>
+
+
+<script>
+
+    let currentCategory = "All";
+
+
+    function goBack() {
+        window.location.href = "index.html";
+    }
+
+
+    function filterItems(category, button) {
+
+        currentCategory = category;
+
+        document
+            .querySelectorAll(".filter")
+            .forEach(btn => btn.classList.remove("active"));
+
+        button.classList.add("active");
+
+        searchItems();
+    }
+
+
+    function searchItems() {
+
+        const query =
+            document
+                .getElementById("search")
+                .value
+                .toLowerCase()
+                .trim();
+
+        const items =
+            document.querySelectorAll(".item");
+
+        let visible = 0;
+
+
+        items.forEach(item => {
+
+            const name =
+                item.dataset.name.toLowerCase();
+
+            const category =
+                item.dataset.category;
+
+            const matchesSearch =
+                name.includes(query);
+
+            const matchesCategory =
+                currentCategory === "All" ||
+                category === currentCategory;
+
+            if (matchesSearch && matchesCategory) {
+
+                item.style.display = "";
+
+                visible++;
+
+            } else {
+
+                item.style.display = "none";
+
+            }
+
+        });
+
+
+        document.getElementById("empty").style.display =
+            visible === 0 ? "block" : "none";
+    }
+
+
+    function openItem(name) {
+
+        alert(
+            name +
+            "\n\nDetailed product page will be connected next."
+        );
+    }
+
+</script>
+
+</body>
+</html>
