@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Product - ClothLoop</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 18px;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: #0b0b12;
+            color: white;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .back {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 15px;
+            border-radius: 12px;
+            background: #171722;
+            color: #ddd;
+            text-decoration: none;
+            border: 1px solid #29293a;
+        }
+
+        .product {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .image-box {
+            min-height: 430px;
+            border-radius: 22px;
+            background: linear-gradient(135deg, #211638, #10232f);
+            border: 1px solid #33334a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 90px;
+        }
+
+        .details {
+            padding: 5px;
+        }
+
+        .verified {
+            display: inline-block;
+            padding: 7px 12px;
+            border-radius: 20px;
+            background: #16352b;
+            color: #6ff0b4;
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            margin: 5px 0 10px;
+            font-size: 30px;
+        }
+
+        .price {
+            font-size: 30px;
+            font-weight: bold;
+            margin: 12px 0;
+        }
+
+        .original {
+            color: #888;
+            text-decoration: line-through;
+            font-size: 15px;
+            margin-left: 8px;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .info {
+            padding: 13px;
+            border-radius: 14px;
+            background: #14141e;
+            border: 1px solid #29293a;
+        }
+
+        .label {
+            color: #888;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .value {
+            font-size: 15px;
+        }
+
+        .section {
+            margin-top: 18px;
+            padding: 18px;
+            border-radius: 18px;
+            background: #12121b;
+            border: 1px solid #29293a;
+        }
+
+        .section h2 {
+            margin-top: 0;
+            font-size: 18px;
+        }
+
+        .section p {
+            color: #bbb;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        button {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .buy {
+            background: linear-gradient(90deg, #8b5cf6, #06b6d4);
+            color: white;
+        }
+
+        .contact {
+            background: #20202c;
+            color: white;
+            border: 1px solid #343447;
+        }
+
+        .protection {
+            color: #8ee8c0 !important;
+        }
+
+        @media (max-width: 700px) {
+            .product {
+                grid-template-columns: 1fr;
+            }
+
+            .image-box {
+                min-height: 330px;
+            }
+
+            h1 {
+                font-size: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <a href="browse.html" class="back">← Back to Browse</a>
+
+    <div class="product">
+
+        <div class="image-box">
+            👗
+        </div>
+
+        <div class="details">
+
+            <div class="verified">
+                ✓ Physically Verified
+            </div>
+
+            <h1>Red Wedding Lehenga</h1>
+
+            <div class="price">
+                ₹1,800
+                <span class="original">₹4,500</span>
+            </div>
+
+            <div class="info-grid">
+
+                <div class="info">
+                    <div class="label">Category</div>
+                    <div class="value">Wedding Wear</div>
+                </div>
+
+                <div class="info">
+                    <div class="label">Size</div>
+                    <div class="value">M</div>
+                </div>
+
+                <div class="info">
+                    <div class="label">Brand</div>
+                    <div class="value">Example Brand</div>
+                </div>
+
+                <div class="info">
+                    <div class="label">Times Worn</div>
+                    <div class="value">1 time</div>
+                </div>
+
+                <div class="info">
+                    <div class="label">Condition</div>
+                    <div class="value">Like New</div>
+                </div>
+
+                <div class="info">
+                    <div class="label">Alterations</div>
+                    <div class="value">None reported</div>
+                </div>
+
+            </div>
+
+            <div class="section">
+
+                <h2>🔍 Verification Report</h2>
+
+                <p>
+                    This sample listing has been marked as physically verified.
+                    A verified partner checks the actual garment and records
+                    observable details such as condition, stains, tears,
+                    alterations and missing accessories.
+                </p>
+
+            </div>
+
+            <div class="section">
+
+                <h2>🛡️ Buyer Protection</h2>
+
+                <p class="protection">
+                    If the delivered clothing materially differs from the
+                    verified listing, the buyer can raise a dispute through
+                    ClothLoop.
+                </p>
+
+            </div>
+
+            <div class="section">
+
+                <h2>👤 Seller</h2>
+
+                <p>
+                    Seller: Sample Seller<br>
+                    Location: Available after purchase
+                </p>
+
+            </div>
+
+            <div class="buttons">
+                <button class="buy" onclick="buyItem()">Buy</button>
+                <button class="contact" onclick="contactSeller()">Contact Seller</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function buyItem() {
+    alert("Buying will be connected after Firebase and payment systems are added.");
+}
+
+function contactSeller() {
+    alert("Seller chat will be connected after the account system is added.");
+}
+
+</script>
+
+</body>
+</html>
