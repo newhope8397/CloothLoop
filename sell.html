@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sell a Cloth - ClothLoop</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #090a10;
+            color: #f5f7ff;
+            font-family: Arial, sans-serif;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 650px;
+            margin: auto;
+            padding: 18px;
+        }
+
+        .top {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 25px;
+        }
+
+        .back {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: #12141d;
+            color: white;
+            border-radius: 11px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .top h1 {
+            margin: 0;
+            font-size: 23px;
+        }
+
+        .intro {
+            color: #9ca3b5;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: #12141d;
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 18px;
+            padding: 18px;
+            margin-bottom: 15px;
+        }
+
+        .card h2 {
+            margin: 0 0 17px;
+            font-size: 17px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 13px;
+            margin-bottom: 16px;
+            border-radius: 11px;
+            border: 1px solid rgba(255,255,255,0.09);
+            background: #0b0d14;
+            color: white;
+            outline: none;
+            font: inherit;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #9b6cff;
+        }
+
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .photo-box {
+            border: 1px dashed rgba(155,108,255,0.5);
+            border-radius: 14px;
+            padding: 25px 15px;
+            text-align: center;
+            background: rgba(155,108,255,0.05);
+            cursor: pointer;
+        }
+
+        .photo-box input {
+            display: none;
+        }
+
+        .photo-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .photo-box strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .photo-box span {
+            color: #9ca3b5;
+            font-size: 13px;
+        }
+
+        #preview {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .preview-image {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .info {
+            padding: 13px;
+            border-radius: 12px;
+            background: rgba(54,217,199,0.06);
+            border: 1px solid rgba(54,217,199,0.15);
+            color: #b7c7c5;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-top: 5px;
+        }
+
+        .verify-option {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 14px;
+            border-radius: 12px;
+            background: #0b0d14;
+            border: 1px solid rgba(255,255,255,0.07);
+        }
+
+        .verify-option input {
+            width: auto;
+            margin: 3px 0 0;
+        }
+
+        .verify-option strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .verify-option small {
+            color: #9ca3b5;
+            line-height: 1.4;
+        }
+
+        .submit {
+            width: 100%;
+            border: none;
+            padding: 15px;
+            border-radius: 13px;
+            background: linear-gradient(90deg, #9b6cff, #36d9c7);
+            color: #08090e;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .submit:active {
+            transform: scale(0.99);
+        }
+
+        @media (max-width: 500px) {
+            .row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <div class="top">
+        <button class="back" onclick="goBack()">←</button>
+        <h1>Sell a Cloth</h1>
+    </div>
+
+    <p class="intro">
+        Give your clothing another life. Be honest about its condition
+        so buyers can make a confident decision.
+    </p>
+
+
+    <!-- PHOTOS -->
+
+    <div class="card">
+
+        <h2>1. Add photos</h2>
+
+        <label class="photo-box">
+            <input
+                type="file"
+                id="photos"
+                accept="image/*"
+                multiple
+                onchange="showPhotos(event)"
+            >
+
+            <div class="photo-icon">📷</div>
+
+            <strong>Add clothing photos</strong>
+
+            <span>
+                Front, back, label and any visible defects
+            </span>
+        </label>
+
+        <div id="preview"></div>
+
+    </div>
+
+
+    <!-- BASIC DETAILS -->
+
+    <div class="card">
+
+        <h2>2. Clothing details</h2>
+
+        <label for="title">Listing title</label>
+
+        <input
+            type="text"
+            id="title"
+            maxlength="80"
+            placeholder="Example: Red wedding lehenga"
+        >
+
+
+        <div class="row">
+
+            <div>
+                <label for="category">Category</label>
+
+                <select id="category">
+                    <option value="">Select category</option>
+                    <option>Wedding Wear</option>
+                    <option>Traditional</option>
+                    <option>Party Wear</option>
+                    <option>Formal Wear</option>
+                    <option>Everyday Wear</option>
+                    <option>Kids Wear</option>
+                    <option>Other</option>
+                </select>
+            </div>
+
+
+            <div>
+                <label for="size">Size</label>
+
+                <select id="size">
+                    <option value="">Select size</option>
+                    <option>XS</option>
+                    <option>S</option>
+                    <option>M</option>
+                    <option>L</option>
+                    <option>XL</option>
+                    <option>XXL</option>
+                    <option>Free Size</option>
+                    <option>Other</option>
+                </select>
+            </div>
+
+        </div>
+
+
+        <div class="row">
+
+            <div>
+                <label for="brand">Brand</label>
+
+                <input
+                    type="text"
+                    id="brand"
+                    placeholder="Optional"
+                >
+            </div>
+
+
+            <div>
+                <label for="times">Times worn</label>
+
+                <input
+                    type="number"
+                    id="times"
+                    min="0"
+                    placeholder="Example: 1"
+                >
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CONDITION -->
+
+    <div class="card">
+
+        <h2>3. Condition</h2>
+
+        <label for="condition">How would you describe it?</label>
+
+        <select id="condition">
+
+            <option value="">Select condition</option>
+
+            <option>New - Never worn</option>
+
+            <option>Like New - Worn 1–2 times</option>
+
+            <option>Excellent - Very little use</option>
+
+            <option>Good - Normal signs of use</option>
+
+            <option>Used - Clearly used</option>
+
+        </select>
+
+
+        <label for="defects">Defects or alterations</label>
+
+        <textarea
+            id="defects"
+            placeholder="Mention stains, tears, loose threads, alterations, missing buttons, etc. Write 'None' if there are no known defects."
+        ></textarea>
+
+
+        <label for="description">Additional description</label>
+
+        <textarea
+            id="description"
+            placeholder="Tell buyers anything else they should know..."
+        ></textarea>
+
+    </div>
+
+
+    <!-- PRICE -->
+
+    <div class="card">
+
+        <h2>4. Pricing</h2>
+
+        <label for="originalPrice">Original purchase price</label>
+
+        <input
+            type="number"
+            id="originalPrice"
+            min="0"
+            placeholder="₹"
+        >
+
+
+        <label for="sellingPrice">Your selling price</label>
+
+        <input
+            type="number"
+            id="sellingPrice"
+            min="0"
+            placeholder="₹"
+        >
+
+        <div class="info">
+            💡 A realistic price can help your clothing find another
+            owner faster. The platform may later suggest a price based
+            on condition, brand and demand.
+        </div>
+
+    </div>
+
+
+    <!-- VERIFICATION -->
+
+    <div class="card">
+
+        <h2>5. Verification</h2>
+
+        <div class="verify-option">
+
+            <input
+                type="checkbox"
+                id="verification"
+            >
+
+            <div>
+
+                <strong>Request physical verification</strong>
+
+                <small>
+                    Take the clothing to a verified ClothLoop tailoring
+                    partner. They will inspect the actual garment and
+                    create a condition report before the listing receives
+                    a verification badge.
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <button class="submit" onclick="submitListing()">
+        Continue to Listing
+    </button>
+
+</div>
+
+
+<script>
+
+    function goBack() {
+        window.location.href = "index.html";
+    }
+
+
+    function showPhotos(event) {
+
+        const files = event.target.files;
+        const preview = document.getElementById("preview");
+
+        preview.innerHTML = "";
+
+        for (let i = 0; i < files.length; i++) {
+
+            const file = files[i];
+
+            if (!file.type.startsWith("image/")) {
+                continue;
+            }
+
+            const image = document.createElement("img");
+
+            image.className = "preview-image";
+
+            image.src = URL.createObjectURL(file);
+
+            preview.appendChild(image);
+        }
+    }
+
+
+    function submitListing() {
+
+        const title =
+            document.getElementById("title").value.trim();
+
+        const category =
+            document.getElementById("category").value;
+
+        const size =
+            document.getElementById("size").value;
+
+        const condition =
+            document.getElementById("condition").value;
+
+        const sellingPrice =
+            document.getElementById("sellingPrice").value;
+
+
+        if (!title ||
+            !category ||
+            !size ||
+            !condition ||
+            !sellingPrice) {
+
+            alert(
+                "Please complete the required clothing details."
+            );
+
+            return;
+        }
+
+
+        alert(
+            "Your listing information is ready. Firebase will be connected next."
+        );
+    }
+
+</script>
+
+</body>
+      </html>
