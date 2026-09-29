@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ClothLoop — Give Clothes Another Life</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #090a10;
+            --card: #12141d;
+            --card-light: #181b26;
+            --text: #f5f7ff;
+            --muted: #9ca3b5;
+            --primary: #9b6cff;
+            --secondary: #36d9c7;
+            --border: rgba(255,255,255,0.08);
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at top left, rgba(155,108,255,0.18), transparent 35%),
+                radial-gradient(circle at top right, rgba(54,217,199,0.10), transparent 30%),
+                var(--bg);
+            color: var(--text);
+            font-family: Arial, sans-serif;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        .app {
+            width: 100%;
+            max-width: 1100px;
+            margin: auto;
+            padding: 18px;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0 25px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .logo-mark {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #08090e;
+            font-weight: 900;
+        }
+
+        .login-btn {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 9px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        /* HERO */
+
+        .hero {
+            padding: 42px 8px 35px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 7px 11px;
+            border: 1px solid rgba(54,217,199,0.25);
+            background: rgba(54,217,199,0.07);
+            color: var(--secondary);
+            border-radius: 999px;
+            font-size: 13px;
+            margin-bottom: 18px;
+        }
+
+        h1 {
+            margin: 0;
+            max-width: 700px;
+            font-size: clamp(38px, 8vw, 72px);
+            line-height: 1.02;
+            letter-spacing: -2px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            max-width: 650px;
+            color: var(--muted);
+            font-size: 17px;
+            line-height: 1.6;
+            margin: 22px 0;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .primary-btn,
+        .secondary-btn {
+            border: none;
+            padding: 13px 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .primary-btn {
+            color: #08090e;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .secondary-btn {
+            color: var(--text);
+            background: var(--card-light);
+            border: 1px solid var(--border);
+        }
+
+        /* SECTION */
+
+        .section {
+            margin-top: 25px;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .section-heading h2 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .section-heading span {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* CATEGORIES */
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .category {
+            min-height: 105px;
+            padding: 17px;
+            border-radius: 17px;
+            background: rgba(18,20,29,0.85);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .category:hover {
+            transform: translateY(-2px);
+            border-color: rgba(155,108,255,0.35);
+        }
+
+        .category-icon {
+            font-size: 25px;
+            margin-bottom: 12px;
+        }
+
+        .category strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .category small {
+            color: var(--muted);
+        }
+
+        /* HOW IT WORKS */
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .step {
+            padding: 20px;
+            border-radius: 17px;
+            background: var(--card);
+            border: 1px solid var(--border);
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: rgba(155,108,255,0.15);
+            color: var(--primary);
+            font-weight: 800;
+            margin-bottom: 14px;
+        }
+
+        .step h3 {
+            margin: 0 0 8px;
+            font-size: 16px;
+        }
+
+        .step p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* CIRCULAR LOOP */
+
+        .loop {
+            margin-top: 35px;
+            padding: 25px;
+            border-radius: 22px;
+            background: linear-gradient(
+                135deg,
+                rgba(155,108,255,0.10),
+                rgba(54,217,199,0.06)
+            );
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .loop h2 {
+            margin-top: 0;
+        }
+
+        .loop-text {
+            color: var(--muted);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .loop-flow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .loop-item {
+            padding: 9px 12px;
+            border-radius: 10px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            font-size: 13px;
+        }
+
+        .arrow {
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            color: var(--muted);
+            font-size: 13px;
+            padding: 40px 0 15px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 650px) {
+            .app {
+                padding: 14px;
+            }
+
+            .hero {
+                padding-top: 30px;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+            }
+
+            .categories {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            h1 {
+                letter-spacing: -1.5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <nav>
+        <div class="logo">
+            <div class="logo-mark">C</div>
+            <span>ClothLoop</span>
+        </div>
+
+        <button class="login-btn" onclick="login()">
+            Login
+        </button>
+    </nav>
+
+
+    <main>
+
+        <section class="hero">
+
+            <div class="badge">
+                ♻️ Keep clothes in the loop
+            </div>
+
+            <h1>
+                Your clothes deserve
+                <span class="gradient-text">another life.</span>
+            </h1>
+
+            <p>
+                Sell clothes you no longer wear, discover pre-loved
+                occasion wear, repair what can be saved, and send
+                unusable textiles toward responsible reuse or recycling.
+            </p>
+
+            <div class="hero-buttons">
+                <button class="primary-btn" onclick="sellClothes()">
+                    Sell a Cloth
+                </button>
+
+                <button class="secondary-btn" onclick="browseClothes()">
+                    Browse Clothes
+                </button>
+            </div>
+
+        </section>
+
+
+        <section class="section">
+
+            <div class="section-heading">
+                <h2>Find what you need</h2>
+                <span>Start exploring</span>
+            </div>
+
+            <div class="categories">
+
+                <div class="category" onclick="category('Wedding')">
+                    <div class="category-icon">💍</div>
+                    <strong>Wedding Wear</strong>
+                    <small>Outfits for another occasion</small>
+                </div>
+
+                <div class="category" onclick="category('Traditional')">
+                    <div class="category-icon">✨</div>
+                    <strong>Traditional</strong>
+                    <small>Ethnic and cultural wear</small>
+                </div>
+
+                <div class="category" onclick="category('Party')">
+                    <div class="category-icon">🎉</div>
+                    <strong>Party Wear</strong>
+                    <small>Special occasion clothing</small>
+                </div>
+
+                <div class="category" onclick="category('Everyday')">
+                    <div class="category-icon">👕</div>
+                    <strong>Everyday</strong>
+                    <small>Clothes for daily use</small>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="section">
+
+            <div class="section-heading">
+                <h2>How ClothLoop works</h2>
+                <span>Simple and trusted</span>
+            </div>
+
+            <div class="steps">
+
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>List your clothing</h3>
+                    <p>
+                        Upload real photos and describe the clothing,
+                        condition, size and usage.
+                    </p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Get it verified</h3>
+                    <p>
+                        For eligible listings, visit a verified local
+                        tailoring partner for physical inspection.
+                    </p>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Give it another life</h3>
+                    <p>
+                        Another person can buy it, or the clothing can
+                        move toward repair, reuse or recycling.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="loop">
+
+            <h2>One cloth. Many lives. ♻️</h2>
+
+            <p class="loop-text">
+                A wedding outfit shouldn't have to spend the next ten
+                years inside a cupboard. One person can sell it,
+                another can wear it, and eventually its material can
+                find another purpose.
+            </p>
+
+            <div class="loop-flow">
+
+                <div class="loop-item">Buy</div>
+                <div class="arrow">→</div>
+
+                <div class="loop-item">Wear</div>
+                <div class="arrow">→</div>
+
+                <div class="loop-item">Resell</div>
+                <div class="arrow">→</div>
+
+                <div class="loop-item">Repair / Reuse</div>
+                <div class="arrow">→</div>
+
+                <div class="loop-item">Recycle</div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+        ClothLoop — Give clothes another life.
+    </footer>
+
+</div>
+
+
+<script>
+
+    function login() {
+        alert("Login will be added in the next step.");
+    }
+
+    function sellClothes() {
+        alert("Clothing listing will be added in the next step.");
+    }
+
+    function browseClothes() {
+        alert("Clothing marketplace will be added in the next step.");
+    }
+
+    function category(name) {
+        alert(name + " clothing will be available soon.");
+    }
+
+</script>
+
+</body>
+</html>
